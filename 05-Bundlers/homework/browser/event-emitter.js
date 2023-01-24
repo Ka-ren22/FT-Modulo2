@@ -1,9 +1,6 @@
-(function () {
-
-  window.EventEmitter = EventEmitter;
 
   // our EventEmitter constructor function
-  function EventEmitter () {
+ function EventEmitter () {
     this.subscribers = {};
   }
 
@@ -43,4 +40,4 @@
 
   };
 
-})();
+export default EventEmitter; //EM6

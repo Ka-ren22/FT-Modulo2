@@ -1,3 +1,5 @@
+//const TemplateGlob = require("@11ty/eleventy/src/TemplateGlob");
+
 var traverseDomAndCollectElements = function(matchFunc, startEl) {
   var resultSet = [];
 
@@ -7,9 +9,15 @@ var traverseDomAndCollectElements = function(matchFunc, startEl) {
 
   // recorre el árbol del DOM y recolecta elementos que matchien en resultSet
   // usa matchFunc para identificar elementos que matchien
-
+  if (matchFunc(startEl)){
+    resultSet.push(startEl);
+  }
   // TU CÓDIGO AQUÍ
-  
+  for(var i=0; i<startEl.children.length; i++){
+    let elements = traverseDomAndCollectElements(matchFunc, startEl.children[i]);
+    resultSet = [...resultSet, ...elements];
+  }
+  return resultSet;
 };
 
 // Detecta y devuelve el tipo de selector
@@ -18,6 +26,15 @@ var traverseDomAndCollectElements = function(matchFunc, startEl) {
 
 var selectorTypeMatcher = function(selector) {
   // tu código aquí
+  if (selector[0] === '#') {
+    return 'id';
+  } else if (selector[0] === '.') {
+    return 'class';
+  }
+  if (selector.split('.').length > 1) {
+    return 'tag.class';
+  }
+  return 'tag';
   
 };
 
@@ -30,13 +47,28 @@ var matchFunctionMaker = function(selector) {
   var selectorType = selectorTypeMatcher(selector);
   var matchFunction;
   if (selectorType === "id") { 
+
+    matchFunction = function(el){
+      return '#' + el.id === selector;
+    }
    
   } else if (selectorType === "class") {
+
+    matchFunction = (el) => el.classList.contains(selector.substring(1));
+      
+      
+    
     
   } else if (selectorType === "tag.class") {
     
+    matchFunction = function(el){
+      var [tagBuscado, classBuscado] = selector.split('.');
+      return matchFunctionMaker(tagBuscado)(el) && matchFunctionMaker(`.${classBuscado}`)(el)
+    }
+
   } else if (selectorType === "tag") {
-    
+    matchFunction = (el) => el.tagName.toLowerCase() === selector.toLowerCase();
+
   }
   return matchFunction;
 };

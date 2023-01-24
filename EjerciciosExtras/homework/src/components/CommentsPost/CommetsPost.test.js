@@ -20,7 +20,7 @@ describe('<CommentsPost />', () => {
     describe('connect Redux', () => {
 
         it('Debería traer de redux nuestros comentarios del post usando mapStateToProps', () => {
-            expect(mapStateToProps(state)).toEqual({ commentsPost: state.commentsPost });
+            expect(mapStateToProps(state)).toEqual({ t:commentsPos, state.commentsPost });
         });
 
         it('Debería traer por props la funcion getAllCommentsPost de Redux usando mapDispatchToProps', () => {

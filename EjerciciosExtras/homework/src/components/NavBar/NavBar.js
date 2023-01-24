@@ -10,15 +10,17 @@ export default function NavBar() {
            <div>
           <NavLink exact to="/" >
                 <img id="logoHenry" src={Logo} width="30" height="30" className="d-inline-block align-top" alt="" />
-            </NavLink>    
+            </NavLink>  
+            <NavLink to="/" >Home</NavLink>  
+            <NavLink to="/filter/posts" >Posts</NavLink>
             </div>
             <nav>
                 <ul className="list">
                     <li className="list-item">
-                        
+                    
                     </li>
                     <li className="list-item">
-                    
+                   
                     </li>
                 </ul>
           </nav>

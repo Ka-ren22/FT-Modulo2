@@ -27,6 +27,17 @@ export class Users extends Component {
     );
   }
 }
+export function mapStateToProps(state){
+  return{
+    users: state.users
+  }
+}
 
-export default Users
+export function mapDispatchToProps(dispatch){
+  return{
+    getAllUsers : () => dispatch(getAllUsers())
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Users);
 

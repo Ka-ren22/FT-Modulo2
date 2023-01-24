@@ -1,6 +1,7 @@
 import React from 'react';
+import styles from "./SearchBar.module.css";
 
-export default function SearchBar(onSearch) {
+export default function SearchBar({onSearch}) {
   // acá va tu código
   function handleOnSearch() {
     if(typeof onSearch === 'function'){
@@ -9,8 +10,8 @@ export default function SearchBar(onSearch) {
     }
   }
   return (
-  <div>
-    <input id = "search-bar-input"/>
+  <div className={styles.searchBar}>
+    <input placeholder ="Agrega una nueva ciudad..." id = "search-bar-input"/>
     <button onClick={handleOnSearch}>Agregar</button>
   </div>);
 };
